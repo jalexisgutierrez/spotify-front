@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { Auth, LoginRequest } from '../../services/auth';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -17,7 +18,9 @@ export class Login {
   errorMessage = '';
   loading = false;
 
-  constructor(private authService: Auth) {}
+  constructor(private authService: Auth,
+    private router: Router 
+  ) {}
 
   submit() {
     this.errorMessage = '';
@@ -34,7 +37,7 @@ export class Login {
 
         // 💾 Guarda el token
         localStorage.setItem('jwt', res.token);
-
+        this.router.navigate(['/genres']);
         alert('Login exitoso. Token guardado.');
       },
       error: () => {
